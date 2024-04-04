@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRESS_USER: ${DB_USER:-admin}
+      POSTGRESS_PASSWORD: ${DB_PASSWORD:-admin}
+      PGDATA: /data/posgres
+    volumes:
+      - ./.docker/postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - postgres
+
+
+networks:
+  postgres:
+    driver: bridge

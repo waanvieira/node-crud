@@ -7,20 +7,33 @@
     "start": "src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "typeorm": "./node_modules/.bin/typeorm"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "class-validator": "^0.14.1",
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "module-alias": "^2.2.3",
+    "pg": "^8.11.5",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.21",
+    "@types/node": "^20.12.4",
+    "@types/uuid": "^9.0.8",
+    "@types/validator": "^13.11.9",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.4"
+  },
+  "_moduleAliases": {
+    "@": "src"
   }
 }

@@ -1,0 +1,140 @@
+O Anotation é uma anotação que é feita com @nome_anotation serve como declaração para uma função por assim dizer global, pode ter que passar parametros ou não, é opcional
+É feita para diversas coisas, um exemplo seria para log, versao de api, em um ORM é usado para referenciar o nome da tabela e de seus parametros
+
+Observação: como estamos usando TS sempre que adicionar uma nova lib adicionar também no ts
+
+Para saber todos os decorator que tem
+https://www.typescriptlang.org/docs/handbook/decorators.html
+
+
+# iniciar o projeto - Vai criar o nosso projeto com o packege.json que fica nossas dependencias do projeto
+npm init -Y
+
+#iniciar o projeto -  inicia o projeto baixando as dependencias da pasta node_modules
+
+npm init
+
+# instalando o TS - para instalar alguma lib seja o ela o TS, express ou outra lib
+
+npm install typescript
+
+# Iniciar o TS
+sudo npx tsc --init
+
+# para habilitar os decorators - comentar a linha do tsconfig.json
+
+    "experimentalDecorators": true,                   /* Enable experimental support for legacy experimental decorators. */
+
+removendo a linha comentada habilita o decorator no nosso projeto
+
+# Pasta build do projeto - o projeto em TS é compilado e buildado em JS, remover o comentario do 
+
+"outDir": "./",                                   /* Specify an output folder for all emitted files. */
+
+Esse outDir é onde o nosso projeto final vai ser buildado, além de remover esse comentário podemos alterar a pasta padrão para onde o nosso projeto será compilado no final
+se deixar esse campo como é o defatult './' o projeto vai ser criado na pasta raiz, uma boa prática seria indicar uma pasta para qual será feito o build
+ficando 
+
+
+Obs: Se a pasta não estiver criada anteriormente não tem problema, irá ser criada
+
+
+Assim fica mais organizado o nosso projeto
+
+rodando nosso projeto
+
+npx tsc
+
+# lib para ficar ouvindo o servidor a cada mudança
+
+npm nodemon
+
+Ou para ver o resultado nesse caso um arquivo simples com um console log 
+
+node dist/main.js
+
+
+# Esse pacote permita escutar as alterações dos arquivos Typescript em tempo real .
+
+npm add -D ts-node-dev
+OU
+npx add -D ts-node-dev
+
+Depois de instalado vamos ao nosso package.json e adicionaremos essas propriedades .
+"scripts": {
+  "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+  "build": "tsc"
+},
+
+O que colocamos nesse script seria um atalho para alguma lib, vamos adicionar do typeorm, nosso orm node, usado também no nest
+
+Para sabermos os comandos do typeorm que seria basicamente igual o php artisan seria
+
+sudo npx typeorm
+
+"scripts": {
+"start": "src/server.ts",
+"test": "echo \"Error: no test specified\" && exit 1",
+"dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+"build": "tsc",
+"typeorm": "./node_modules/.bin/typeorm"
+},
+
+Adicionando isso basta digitar npm run typeorm e passar a opção que queremos, um exemplo seria migration
+
+npm run typeorm migration:show
+
+#Banco ORM 
+
+Criar um arquivo connection  em database e configurar como está no exemplo desse projeto
+# Entities ORM 
+
+Para não precisar ser obrigatório inicializar as variáveis em um construct desabilitar essa variavel em tsconfig.json
+
+Descomentar e passar para false, como abaixo
+
+"strictPropertyInitialization": false,  
+
+# Para criarmos nossas tabelas é a referencia das nossas Entities no arquivo connection em  
+entities: [entity_name],
+
+Para não ter que ficar passando todas as Entities toda vez que uma for criada adicionamos um "atalho"
+ entities: [
+        // Faz o mapeamento de todos os arquivos da pasta entities, todos os arquivos dessa pasta vão ser rastreados
+        path.join(__dirname+'/../entities/*')
+    ],
+Pega todas as entities do diretorio que passamos
+
+
+
+# Lib para validar os dados do request 
+
+ sudo npm add class-validator
+
+  sudo npm add -D @types/validator
+
+ Obs: Considerações de implementação e como implementar estão no código
+
+ Para ficar melhor os imports adicionamos o alias, que melhora a nossa importação
+
+ npm add module-alias
+
+ tsconfig.json
+
+ configurar
+     "baseUrl": "./src",                                  /* Specify the base directory to resolve non-relative module names. */
+    "paths": {
+      "@/": ["*"]
+    }, 
+
+Assim o nosso projeto raiz é o src e não mais a pasta anterior
+
+assim não precisamos ficar subindo níveis para fazer imports
+
+em package.json
+
+  "_moduleAliases": {
+    "@": "src"
+  }
+
+  assim não precisamos ficar ../../ basta colocar @ assim melhora nossos imports, ele vai pegar sempre da pasta base como o src

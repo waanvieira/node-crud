@@ -4,8 +4,9 @@ services:
   postgres:
     image: postgres
     environment:
-      POSTGRESS_USER: ${DB_USER:-admin}
-      POSTGRESS_PASSWORD: ${DB_PASSWORD:-admin}
+      POSTGRES_USER: ${DB_USER:-admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-admin}
+      POSTGRES_DB: ts_node 
       PGDATA: /data/posgres
     volumes:
       - ./.docker/postgres:/data/postgres
@@ -15,6 +16,12 @@ services:
     networks:
       - postgres
 
+  adminer:
+    image: adminer
+    ports:
+    - 8080:8080
+    networks:
+      - postgres
 
 networks:
   postgres:
